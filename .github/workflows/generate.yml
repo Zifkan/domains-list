@@ -1,7 +1,7 @@
 ﻿name: Generate Domain Lists
 on:
   schedule:
-    - cron: "44 18 * * *" # 00:10 UTC
+    - cron: "0 0 * * *" # 03:00 Moscow (UTC)
   workflow_dispatch:
 
 permissions:
