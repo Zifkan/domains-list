@@ -1,12 +1,15 @@
-﻿{
-  "maxFileEntries": 300,
+{
+  "maxFileEntries": -1,
   "generateIndividualFiles": false,
   "generateCombinedFiles": true,
-  "perServiceTemplate": "#{{service}}\n",
   "domainTemplate": "nftset=/{{domain}}/4#inet#fw4#vpn_domains\n",
   "fileExtension":"lst",
   "groups": [
-    "discord","games","jetbrains","tools","youtube","socials"
+    "discord",
+    "games",
+    "jetbrains",
+    "tools",
+    "youtube"
   ],
   "services": [
     "telegram",
@@ -37,6 +40,6 @@
     "adguard",
     "themoviedb"
   ],
-  "additionalLists":{   
+  "additionalLists":{
   }
 }
