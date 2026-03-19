@@ -1,17 +1,42 @@
 ﻿{
   "maxFileEntries": 300,
-  "generateIndividualFiles": true,
+  "generateIndividualFiles": false,
   "generateCombinedFiles": true,
   "perServiceTemplate": "#{{service}}\n",
-  "domainTemplate": "{{domain}} #{{service}}\n",
+  "domainTemplate": "nftset=/{{domain}}/4#inet#fw4#vpn_domains\n",
   "fileExtension":"lst",
   "groups": [
-    "anime","art","education","games","music","news","shop","socials","tools","video"
+    "discord","games","jetbrains","tools","youtube","socials"
   ],
   "services": [
-    "jetbrains","intel","themoviedb","nvidia"
+    "telegram",
+    "whatsapp",
+    "soundcloud",
+    "spotify",
+    "x",
+    "instagram",
+    "facebook",
+    "linkedin",
+    "rutor",
+    "kinozal",
+    "torrent",
+    "rutracker",
+    "hdrezka",
+    "kinopub",
+    "lostfilm",
+    "supercell",
+    "ookla-speedtest",
+    "openai",
+    "github",
+    "gitlab",
+    "intel",
+    "openwrt",
+    "nvidia",
+    "slack",
+    "discord",
+    "adguard",
+    "themoviedb"
   ],
-  "additionalLists":{
-    "example":["https://my.example.com/domaims.list"]
+  "additionalLists":{   
   }
 }
