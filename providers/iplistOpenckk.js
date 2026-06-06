@@ -5,7 +5,7 @@ const logTag = "opencck";
 
 const baseUrl = "https://iplist.opencck.org";
 const groupDataUrl = `${baseUrl}/?format=json&data=group`;
-const siteDataUrl = `${baseUrl}/?format=json&data=domains&wildcard=1&site={{site}}`;
+const siteDataUrl = `${baseUrl}/?format=json&data=domains&site={{site}}`;
 
 const services2sites = new Map();
 const groups2services = new Map();
