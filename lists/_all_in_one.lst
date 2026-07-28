@@ -751,6 +751,7 @@ nftset=/githubhackathon.com/4#inet#fw4#vpn_domains
 nftset=/githubnext.com/4#inet#fw4#vpn_domains
 nftset=/githubpreview.dev/4#inet#fw4#vpn_domains
 nftset=/githubstatus.com/4#inet#fw4#vpn_domains
+nftset=/githubsupport.com/4#inet#fw4#vpn_domains
 nftset=/githubuniverse.com/4#inet#fw4#vpn_domains
 nftset=/githubusercontent.com/4#inet#fw4#vpn_domains
 nftset=/myoctocat.com/4#inet#fw4#vpn_domains
