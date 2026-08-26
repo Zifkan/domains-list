@@ -1191,6 +1191,7 @@ nftset=/adguard.info/4#inet#fw4#vpn_domains
 nftset=/adguard.io/4#inet#fw4#vpn_domains
 nftset=/adguard.org/4#inet#fw4#vpn_domains
 nftset=/adguardaccount.com/4#inet#fw4#vpn_domains
+nftset=/adguardaccount.net/4#inet#fw4#vpn_domains
 nftset=/adguardcdn.com/4#inet#fw4#vpn_domains
 nftset=/adtidy.net/4#inet#fw4#vpn_domains
 nftset=/adtidy.org/4#inet#fw4#vpn_domains
