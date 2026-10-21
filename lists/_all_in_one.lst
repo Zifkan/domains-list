@@ -688,6 +688,7 @@ nftset=/openaicomproductionae4b.blob.core.windows.net/4#inet#fw4#vpn_domains
 nftset=/production-openaicom-storage.azureedge.net/4#inet#fw4#vpn_domains
 nftset=/browser-intake-datadoghq.com/4#inet#fw4#vpn_domains
 nftset=/o33249.ingest.sentry.io/4#inet#fw4#vpn_domains
+nftset=/o33249.ingest.us.sentry.io/4#inet#fw4#vpn_domains
 nftset=/openai.qualtrics.com/4#inet#fw4#vpn_domains
 nftset=/oaiusercontent.com/4#inet#fw4#vpn_domains
 nftset=/openai.com/4#inet#fw4#vpn_domains
