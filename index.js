@@ -6,6 +6,7 @@ import path from 'path';
 import dotenv from 'dotenv';
 import {fetchUrlStringWithRetry} from "./urls.js";
 import {filterDomains} from "./utils.js";
+import {generateIpLists} from "./ip-lists.js";
 
 const providers = [
     openCkk,
@@ -119,7 +120,6 @@ async function init(){
         await provider.init();
     }
 
-    fs.writeFileSync(allFilesPath, "");
     combinedFileData = createNewFileData("_all_in_one");
 }
 
@@ -169,13 +169,25 @@ async function run(){
         }
     }
 
+    // Collect all IP sources before touching generated domain files. A failed
+    // source must fail the workflow rather than publish an incomplete list.
+    const ipServices = appConfig.ipServices ?? ["telegram", "discord"];
+    const ipFiles = await generateIpLists(ipServices, appConfig);
+
     for (const service of targetServices) {
         await processService(service);
     }
 
     await processAdditionalLists();
 
+    for (const [fileName, content] of Object.entries(ipFiles)) {
+        fs.writeFileSync(path.join("./lists", fileName), content);
+        allFiles.push(fileName);
+    }
+
     allFiles = allFiles.sort();
+
+    fs.writeFileSync(allFilesPath, "");
 
     for (const file of allFiles) {
         fs.appendFileSync(allFilesPath, `${file}\n`);
@@ -191,4 +203,4 @@ async function run(){
     }
 }
 
-run().catch(console.error);
+run().catch(err => { console.error(err); process.exitCode = 1; });

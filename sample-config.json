@@ -4,6 +4,9 @@
   "generateCombinedFiles": true,
   "domainTemplate": "nftset=/{{domain}}/4#inet#fw4#vpn_domains\n",
   "fileExtension":"lst",
+  "generateIpFiles": true,
+  "ipServices": ["telegram", "discord"],
+  "additionalIpLists": {},
   "groups": [
     "discord",
     "games",
