@@ -2115,3 +2115,4 @@ nftset=/youtubei.googleapis.com/4#inet#fw4#vpn_domains
 nftset=/youtube-ui.l.google.com/4#inet#fw4#vpn_domains
 nftset=/wide-youtube.l.google.com/4#inet#fw4#vpn_domains
 nftset=/ads.youtube.com/4#inet#fw4#vpn_domains
+nftset=/widget.smart-glocal.com/4#inet#fw4#vpn_domains

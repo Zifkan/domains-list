@@ -143,3 +143,5 @@ api.service2.com #service2
 users.service2.com #service2
 service2.com #service2
 ```
+
+OpenWrt IP setup: [OPENWRT-IP.md](OPENWRT-IP.md).

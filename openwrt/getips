@@ -1,0 +1,50 @@
+#!/bin/sh /etc/rc.common
+START=99
+
+BRANCH='main'
+IP_URL="https://raw.githubusercontent.com/Zifkan/domains-list/refs/heads/$BRANCH/lists/_all_in_one_ipv4.lst"
+
+start() {
+    local dir ips batch attempt
+    dir="$(mktemp -d /tmp/getips.XXXXXX)" || return 1
+    ips="$dir/ipv4.lst"
+    batch="$dir/rules.nft"
+
+    # At boot the uplink may not be ready yet. Retry a bounded number of times.
+    attempt=0
+    while ! curl -fsSL --connect-timeout 5 --max-time 20 "$IP_URL" -o "$ips"; do
+        attempt=$((attempt + 1))
+        if [ "$attempt" -ge 12 ]; then
+            echo 'IP list download failed; keeping current rules' >&2
+            rm -rf "$dir"
+            return 1
+        fi
+        sleep 5
+    done
+
+    if [ ! -s "$ips" ] || ! awk 'BEGIN { ok=1 } !/^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+\/[0-9]+$/ {ok=0} END {exit !ok}' "$ips"; then
+        echo 'Invalid or empty IP list; keeping current rules' >&2
+        rm -rf "$dir"
+        return 1
+    fi
+
+    if nft list table inet domains_list >/dev/null 2>&1; then
+        echo 'delete table inet domains_list' > "$batch"
+    else
+        : > "$batch"
+    fi
+    {
+        echo 'add table inet domains_list'
+        echo 'add set inet domains_list vpn_ips { type ipv4_addr; flags interval; auto-merge; }'
+        echo 'add element inet domains_list vpn_ips {'
+        awk '{ printf "%s%s", sep, $0; sep=",\n" } END { print "\n}" }' "$ips"
+        echo 'add chain inet domains_list prerouting { type filter hook prerouting priority mangle; policy accept; }'
+        echo 'add rule inet domains_list prerouting iifname "br-lan" ip daddr @vpn_ips counter meta mark set 0x1'
+    } >> "$batch"
+    if ! nft -c -f "$batch" || ! nft -f "$batch"; then
+        echo 'IP rule validation or update failed; keeping current rules' >&2
+        rm -rf "$dir"
+        return 1
+    fi
+    rm -rf "$dir"
+}
