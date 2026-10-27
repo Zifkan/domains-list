@@ -180,6 +180,14 @@ async function run(){
 
     await processAdditionalLists();
 
+    // Keep manually selected domains alongside the repository, independent of
+    // external providers and the GitHub Actions secret.
+    const customDomainsPath = path.resolve('./custom/domains.txt');
+    if (fs.existsSync(customDomainsPath)) {
+        const domains = filterDomains(fs.readFileSync(customDomainsPath, 'utf8').split('\n').map(line => line.trim()));
+        for (const domain of domains) pushDomainToFiles('_custom', domain);
+    }
+
     for (const [fileName, content] of Object.entries(ipFiles)) {
         fs.writeFileSync(path.join("./lists", fileName), content);
         allFiles.push(fileName);
