@@ -25,13 +25,15 @@ GeoIP MetaCubeX, официальный список Telegram и обществ�
 
 ## Установка
 
-После коммита и push запустите GitHub Actions и дождитесь появления
-`lists/_all_in_one_ipv4.lst`. Скрипт рассчитан на показанную конфигурацию:
+После коммита и push запустите GitHub Actions вручную, выбрав ветку `ip_List`,
+и дождитесь появления в этой ветке `lists/_all_in_one_ipv4.lst`. Плановый запуск
+GitHub Actions выполняется только в ветке по умолчанию; для `ip_List` повторно
+запускайте workflow вручную. Скрипт рассчитан на показанную конфигурацию:
 OpenWrt fw4, LAN `br-lan`, метку `0x1`, таблицу `vpn` с маршрутом через `awg1`.
 Нужны `curl` и `nft`. Существующий `/etc/init.d/getdomains` сохраняется.
 
 ```sh
-curl -fL https://raw.githubusercontent.com/Zifkan/domains-list/refs/heads/main/openwrt/getips -o /tmp/getips.new
+curl -fL https://raw.githubusercontent.com/Zifkan/domains-list/refs/heads/ip_List/openwrt/getips -o /tmp/getips.new
 sh -n /tmp/getips.new
 ```
 
@@ -75,3 +77,15 @@ ip route get 149.154.160.1 mark 0x1
 которые могли его использовать. На роутере с данной конфигурацией код ещё не
 проверен. В показанном выводе `nft list set inet fw4 vpn_domains` нет результата,
 поэтому состояние этого набора не подтверждено.
+
+## Откат и смена ветки
+
+Чтобы полностью отключить тестовый IP-набор, удалите строку `getips` из crontab,
+затем выполните `/etc/init.d/getips disable` и `nft delete table inet domains_list`.
+Не удаляйте таблицу при одновременно выполняющемся обновлении. Старый
+`getdomains`, его расписание и BGP не меняются.
+
+Переключение `BRANCH` в `/etc/init.d/getips` на `main` работает только после того,
+как код и IP-список сгенерированы в `main`. Если там нет списка или он не
+скачался, существующие IP-правила останутся в памяти: сама смена ветки их не
+отключает. Для отката используйте команды выше.
