@@ -1,7 +1,8 @@
 #!/bin/sh /etc/rc.common
 START=99
 
-IP_URL='https://raw.githubusercontent.com/Zifkan/domains-list/refs/heads/main/lists/_all_in_one_ipv4.lst'
+BRANCH='ip_List'
+IP_URL="https://raw.githubusercontent.com/Zifkan/domains-list/refs/heads/$BRANCH/lists/_all_in_one_ipv4.lst"
 
 start() {
     local dir ips batch attempt
